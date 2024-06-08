@@ -1,6 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,30 +8,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Router } from '@angular/router';
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  idade: number;
-  genero: string;
-}
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerInterface } from '../../interfaces/customer-interface';
+import { CustomersManagementService } from '../../services/customers-management.service';
+import { forkJoin } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgClass } from '@angular/common';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Monique', idade: 1.0079, genero: 'H' },
-  { position: 2, name: 'Bruno', idade: 4.0026, genero: 'He' },
-  { position: 3, name: 'Davy', idade: 6.941, genero: 'Li' },
-  { position: 4, name: 'João', idade: 9.0122, genero: 'Be' },
-  { position: 5, name: 'Adrien', idade: 10.811, genero: 'B' },
-  { position: 6, name: 'Yves', idade: 12.0107, genero: 'C' },
-  { position: 7, name: 'Elisângela', idade: 14.0067, genero: 'N' },
-  { position: 8, name: 'Mônica', idade: 15.9994, genero: 'O' },
-  { position: 9, name: 'Samys', idade: 18.9984, genero: 'F' },
-  { position: 10, name: 'Vinicius', idade: 20.1797, genero: 'Ne' },
-];
 @Component({
   selector: 'app-table-customers',
   standalone: true,
   imports: [
+    NgClass,
     MatIconModule,
     MatButtonModule,
     MatTableModule,
@@ -39,24 +27,69 @@ const ELEMENT_DATA: PeriodicElement[] = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatButtonModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './table-customers.component.html',
   styleUrl: './table-customers.component.scss',
 })
-export class TableCustomersComponent {
-  constructor(private router: Router) {}
+export class TableCustomersComponent implements OnInit {
+  displayedColumns: string[] = ['select', 'name', 'idade', 'genero', 'edit'];
+  selection = new SelectionModel<CustomerInterface>(true, []);
   filterForm = new FormGroup({
-    name: new FormControl(''),
-    age: new FormControl(''),
-    gender: new FormControl(''),
+    name: new FormControl('', { nonNullable: true }),
+    age: new FormControl('', { nonNullable: true }),
+    gender: new FormControl('', { nonNullable: true }),
   });
+  dataSource = new MatTableDataSource<CustomerInterface>([]);
+
+  constructor(
+    private router: Router,
+    private customerService: CustomersManagementService,
+    private _snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    const name = this.activatedRoute.snapshot.paramMap.get('name') ?? '';
+
+    this.filterForm.patchValue({ name });
+
+    this.getCustomers();
+  }
+  getCustomers() {
+    this.selection.clear();
+    const params = this.filterForm.value;
+    console.log(params);
+    this.customerService.getCustomers(params).subscribe({
+      next: (customers) => {
+        this.dataSource.data = customers;
+      },
+    });
+  }
+  clearFilters() {
+    this.filterForm.reset();
+    this.getCustomers();
+  }
+  deleteCustomers() {
+    const subscribers = this.selection.selected.map((customer) =>
+      this.customerService.deleteCustomers(customer.id)
+    );
+    forkJoin(subscribers).subscribe({
+      next: () => {
+        this.getCustomers();
+        this.selection.clear();
+        this._snackBar.open('Cliente excluído com sucesso!', 'OK', {
+          duration: 6000,
+        });
+      },
+    });
+  }
+
   navigateTo(page: string) {
     // Use o router para navegar para a página desejada
     this.router.navigate([page]);
   }
-  displayedColumns: string[] = ['select', 'name', 'idade', 'genero', 'edit'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -71,14 +104,5 @@ export class TableCustomersComponent {
     }
 
     this.selection.select(...this.dataSource.data);
-  }
-
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row.position + 1
-    }`;
   }
 }

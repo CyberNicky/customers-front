@@ -5,7 +5,9 @@
   display: flex;
   justify-content: space-between;
 }
-
+.content-menu {
+  cursor: pointer;
+}
 .options-menu {
   display: flex;
   gap: 30px;

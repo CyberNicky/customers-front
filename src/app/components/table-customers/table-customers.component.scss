@@ -25,11 +25,14 @@ button.consultar-button {
   width: 300px;
 }
 
-.button-excluir {
+.actions {
   display: flex;
   justify-content: end;
   margin-top: 18px;
+  width: 100%;
+  gap: 1em;
 }
+
 .message {
   display: flex;
   justify-content: center;
@@ -110,4 +113,8 @@ button.cleanFilter {
   border-radius: 2px;
   width: 300px;
   border: solid 1px;
+}
+
+.button-disable {
+  opacity: 0.6;
 }

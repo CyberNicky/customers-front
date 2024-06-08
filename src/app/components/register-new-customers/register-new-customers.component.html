@@ -5,11 +5,13 @@
         <mat-icon>arrow_back</mat-icon>
       </button>
 
-      <p class="table-customers">Cadastro de clientes</p>
+      <p class="table-customers">
+        {{ customerId ? "Edição" : "Cadastro" }} de cliente
+      </p>
     </div>
   </div>
   <div class="container">
-    <form class="form-content">
+    <form class="form-content" [formGroup]="registerForm">
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="name" />
@@ -21,17 +23,17 @@
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Gênero</mat-label>
         <mat-select formControlName="gender">
-          <mat-option value="one">Feminino</mat-option>
-          <mat-option value="two">Masculino</mat-option>
-          <mat-option value="three">Outros</mat-option>
+          <mat-option value="Feminino">Feminino</mat-option>
+          <mat-option value="Masculino">Masculino</mat-option>
+          <mat-option value="Outros">Outros</mat-option>
         </mat-select>
       </mat-form-field>
       <button
         mat-flat-button
         class="consultar-button"
-        (click)="navigateTo('clientes')"
+        (click)="createCustomer()"
       >
-        Cadastrar cliente
+        {{ customerId ? "Editar" : "Cadastro" }}
       </button>
     </form>
   </div>

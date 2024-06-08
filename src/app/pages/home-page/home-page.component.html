@@ -2,8 +2,9 @@
   <div class="menu">
     <p class="nameEmpresa">ClientFocus</p>
     <div class="options-menu">
-      <p class="content-menu">Página inicial</p>
-      <p class="content-menu">Sobre</p>
+      <p class="content-menu" (click)="navigateTo('clientes')">
+        Tabela de clientes
+      </p>
       <button
         mat-flat-button
         class="consultar-button"
@@ -25,16 +26,15 @@
             type="text"
             aria-label="Number"
             matInput
-            [formControl]="myControl"
-            [matAutocomplete]="auto"
+            [formControl]="name"
           />
-          <mat-autocomplete #auto="matAutocomplete">
-            @for (option of options; track option) {
-            <mat-option [value]="option">{{ option }}</mat-option>
-            }
-          </mat-autocomplete>
         </mat-form-field>
-        <button mat-flat-button class="consultar-button" color="primary">
+        <button
+          mat-flat-button
+          class="consultar-button"
+          color="primary"
+          (click)="getCustomers()"
+        >
           Consultar
         </button>
       </form>

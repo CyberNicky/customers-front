@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { RegisterNewCustomersComponent } from './components/register-new-customers/register-new-customers.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { TableCustomersComponent } from './components/table-customers/table-customers.component';
-import { EditCustomersComponent } from './components/edit-customers/edit-customers.component';
 
 export const routes: Routes = [
   {
@@ -18,8 +17,12 @@ export const routes: Routes = [
     component: TableCustomersComponent,
   },
   {
-    path: 'editar-cadastro',
-    component: EditCustomersComponent,
+    path: 'clientes/:name',
+    component: TableCustomersComponent,
+  },
+  {
+    path: 'registro-de-clientes/:id',
+    component: RegisterNewCustomersComponent,
   },
   //   {
   //     path: 'sobre',

@@ -31,6 +31,9 @@ export class HomePageComponent {
     // Use o router para navegar para a página desejada
     this.router.navigate([page]);
   }
-  myControl = new FormControl('');
-  options: string[] = ['Monique', 'Bruno', 'Yves'];
+  name = new FormControl('');
+
+  getCustomers() {
+    this.router.navigate(['clientes', this.name.value]);
+  }
 }
