@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="menu">
+    <p class="nameEmpresa">ClientFocus</p>
+    <div class="options-menu">
+      <p class="content-menu">Página inicial</p>
+      <p class="content-menu">Sobre</p>
+      <button
+        mat-flat-button
+        class="consultar-button"
+        color="primary"
+        (click)="navigateTo('registro-de-clientes')"
+      >
+        Registre novos clientes
+      </button>
+    </div>
+  </div>
+  <div class="main-conteiner">
+    <div class="content-container">
+      <h1>Bem-vindo a nossa plataforma</h1>
+      <p>Consulte seu cliente aqui.</p>
+      <form class="filter-container">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Buscar por nome</mat-label>
+          <input
+            type="text"
+            aria-label="Number"
+            matInput
+            [formControl]="myControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            @for (option of options; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-flat-button class="consultar-button" color="primary">
+          Consultar
+        </button>
+      </form>
+    </div>
+    <div class="image">
+      <img src="assets/image_1.png" alt="Imagem de exemplo" />
+    </div>
+  </div>
+  <div class="contacts">
+    <img src="assets/facebook.png" alt="" />
+    <img src="assets/instagram.png" alt="" />
+    <img src="assets/youtube.png" alt="" />
+    <img src="assets/linkedin.png" alt="" />
+  </div>
+</div>

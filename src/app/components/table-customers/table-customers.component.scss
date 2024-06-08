@@ -1,0 +1,113 @@
+.title-register {
+  background-color: #fff;
+  padding: 7px;
+}
+
+.table-customers {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 10px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+}
+
+.button-icon {
+  color: #fff;
+}
+
+button.consultar-button {
+  background-color: #0778c9;
+  color: white;
+  border-radius: 2px;
+  width: 300px;
+}
+
+.button-excluir {
+  display: flex;
+  justify-content: end;
+  margin-top: 18px;
+}
+.message {
+  display: flex;
+  justify-content: center;
+  margin-left: 25%;
+  background-color: #ddecf7;
+  border-radius: 3px;
+  width: 50%;
+  p {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.table-container {
+  height: 46vh;
+  @media only screen and (max-height: 768px) {
+    height: 46vh;
+  }
+  width: 100%;
+  overflow-x: scroll;
+  margin-top: 50px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: scroll;
+}
+table {
+  width: 100%;
+}
+
+.mat-mdc-header-row {
+  background-color: black;
+}
+
+.mat-mdc-header-cell
+  ::ng-deep
+  .mat-mdc-checkbox
+  .mdc-checkbox
+  .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not(
+    [data-indeterminate="true"]
+  )
+  ~ .mdc-checkbox__background {
+  border-color: white !important;
+}
+
+.mat-mdc-header-cell {
+  color: white;
+
+  .header-cell-container {
+    display: flex;
+    align-items: center;
+    label {
+      height: 24px;
+    }
+    p {
+      margin: 0;
+      margin-right: 4px;
+    }
+  }
+}
+
+.filters-container {
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 0.5fr 0.5fr;
+  grid-column-gap: 8px;
+  max-width: 100%;
+  align-content: center;
+  justify-content: center;
+  margin-top: 30px;
+  button {
+    height: 3.3rem;
+  }
+}
+
+button.cleanFilter {
+  background-color: #fff;
+  color: #000;
+  border-radius: 2px;
+  width: 300px;
+  border: solid 1px;
+}

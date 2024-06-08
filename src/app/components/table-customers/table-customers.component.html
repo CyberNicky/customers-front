@@ -1,0 +1,127 @@
+<div class="main">
+  <div class="title-register">
+    <div class="title-container">
+      <button mat-icon-button (click)="navigateTo('')">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+
+      <p class="table-customers">Tabela dos clientes</p>
+    </div>
+  </div>
+  <div class="options">
+    <div class="message">
+      <p>Selecione o cliente que deseja excluir.</p>
+    </div>
+  </div>
+  <form class="filters-container">
+    <mat-form-field appearance="outline">
+      <mat-label>
+        <mat-icon>search</mat-icon>
+        Pesquisar por nome
+      </mat-label>
+      <input
+        class="input-autocomplete"
+        placeholder="Digite o nome do cliente"
+        matInput
+        type="text"
+        formControlName="name"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="filter-cnpj-social">
+      <mat-label>
+        <mat-icon>search</mat-icon>
+        idade
+      </mat-label>
+      <input
+        class="input-autocomplete"
+        placeholder="idade"
+        matInput
+        type="text"
+        formControlName="age"
+      />
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="outline">
+      <mat-label>Gênero</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="one">Feminino</mat-option>
+        <mat-option value="two">Masculino</mat-option>
+        <mat-option value="three">Outros</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      class="consultar-button"
+      type="button"
+    >
+      <mat-icon class="mr-1">filter_alt</mat-icon>
+      <span>Filtrar</span>
+    </button>
+    <button mat-button type="button" class="cleanFilter">
+      <mat-icon class="">filter_alt_off</mat-icon>
+    </button>
+    <div class="gap"></div>
+  </form>
+
+  <section class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            (change)="$event ? toggleAllRows() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+          >
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+          >
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome.</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="idade">
+        <th mat-header-cell *matHeaderCellDef>Idade</th>
+        <td mat-cell *matCellDef="let element">{{ element.idade }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="genero">
+        <th mat-header-cell *matHeaderCellDef>Gênero</th>
+        <td mat-cell *matCellDef="let element">{{ element.genero }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef>Editar</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          (click)="navigateTo('editar-cadastro')"
+        >
+          <mat-icon>edit</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="selection.toggle(row)"
+      ></tr>
+    </table>
+  </section>
+  <div class="button-excluir">
+    <button mat-button class="consultar-button">Excluir cliente</button>
+  </div>
+</div>

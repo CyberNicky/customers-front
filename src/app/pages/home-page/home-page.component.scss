@@ -1,0 +1,66 @@
+.container {
+  padding: 10px;
+}
+.menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.options-menu {
+  display: flex;
+  gap: 30px;
+}
+
+.nameEmpresa {
+  font-weight: 500;
+  font-size: 28px;
+}
+
+.content-container {
+  width: 700px;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 40px;
+}
+
+button.consultar-button {
+  background-color: #0778c9;
+  color: white;
+  border-radius: 2px;
+  height: 57px;
+}
+.filter-container {
+  display: flex;
+  gap: 30px;
+}
+.main-conteiner {
+  display: flex;
+  align-items: center;
+  gap: 20%;
+}
+.image {
+  display: flex;
+  justify-content: flex-end;
+  img {
+    height: 600px;
+  }
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.contacts {
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 30px;
+}
