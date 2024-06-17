@@ -129,7 +129,8 @@
   </section>
   <div class="actions">
     <button
-      mat-button
+      mat-flat-button
+      color="warn"
       class="consultar-button"
       (click)="deleteCustomers()"
       [disabled]="!selection.selected.length"
@@ -141,7 +142,7 @@
     </button>
     <div>
       <button
-        mat-button
+        mat-flat-button
         class="consultar-button"
         (click)="navigateTo('registro-de-clientes')"
       >
